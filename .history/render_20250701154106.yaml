@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: blog-app
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    pythonVersion: "3.11"
+    envVars:
+      - key: DATABASE_URL
+        value: postgres://username:password@hostname:port/dbname
+    autoDeploy: true
+    regions:
+      - oregon
+      - virginia
+      - singapore
+      - frankfurt
+      - sydney
+      - japan

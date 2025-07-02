@@ -49,7 +49,10 @@ function generateAIContent() {
 
 
   const selectedModel = document.getElementById("model-select").value;
+  
 
+  // show the loader before making the request (api call)
+  showLoader();
   fetch("/generate_ai", {
     method: "POST",
     headers: {
@@ -71,8 +74,19 @@ function generateAIContent() {
     .catch(error => {
       console.error("Error:", error);
       alert("Failed to generate content.");
+    })
+    .finally(() => {
+      //  Always hide the loader afterward
+      hideLoader();
     });
 }
 
 
+// spinner loader
+function showLoader() {
+  document.getElementById("modern-loader").style.display = "flex";
+}
 
+function hideLoader() {
+  document.getElementById("modern-loader").style.display = "none";
+}

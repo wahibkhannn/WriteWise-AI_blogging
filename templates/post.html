@@ -36,16 +36,16 @@
   </nav>
 
   <!-- Header -->
- <header class="masthead" style="background-image: url('{{ url_for('static', filename='cloud.jpg') }}')">
-  <div class="container text-center">
-    <div class="post-heading">
-      <p class="publish-date">Published on {{ post.date_posted.strftime('%B %d, %Y') }}</p>
-      <h1 class="post-title">{{ post.title }}</h1>
-      <h2 class="subheading">{{ post.subtitle }}</h2>
-      <div class="author-box">✍️ {{ post.author }}</div>
+  <header class="masthead">
+    <div class="container text-center">
+      <div class="post-heading">
+        <p class="publish-date">Published on {{ post.date_posted.strftime('%B %d, %Y') }}</p>
+        <h1 class="post-title">{{ post.title }}</h1>
+        <h2 class="subheading">{{ post.subtitle }}</h2>
+        <div class="author-box">✍️ {{ post.author }}</div>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <!-- Post Content -->
   <article>
@@ -62,9 +62,29 @@
           <!-- Share Buttons -->
           <div class="share-buttons mt-5">
             <strong>Share this post:</strong><br>
-            <a class="btn btn-sm btn-outline-primary mr-2" href="https://twitter.com/share?text={{ post.title }}&url={{ request.url }}" target="_blank">🐦 Tweet</a>
-            <a class="btn btn-sm btn-outline-info mr-2" href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url }}" target="_blank">💼 LinkedIn</a>
-            <a class="btn btn-sm btn-outline-success" href="https://wa.me/?text={{ request.url }}" target="_blank">📱 WhatsApp</a>
+
+            <a class="btn btn-sm btn-outline-danger mr-2" href="https://www.instagram.com/your_username/"
+              target="_blank">
+              <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="icon-img">
+              Instagram
+            </a>
+
+            <a class="btn btn-sm btn-outline-primary mr-2"
+              href="https://twitter.com/share?text={{ post.title }}&url={{ request.url }}" target="_blank">
+              <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="icon-img">
+              Tweet
+            </a>
+
+            <a class="btn btn-sm btn-outline-info mr-2"
+              href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url }}" target="_blank">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="icon-img">
+              LinkedIn
+            </a>
+
+            <a class="btn btn-sm btn-outline-success" href="https://wa.me/?text={{ request.url }}" target="_blank">
+              <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="icon-img">
+              WhatsApp
+            </a>
           </div>
         </div>
       </div>

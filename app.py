@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+import  requests
 import os
+import re
 from datetime import datetime
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -12,6 +14,7 @@ load_dotenv()
 app = Flask(__name__)
 api_key = os.getenv("GEMINI_API_KEY")
 app.secret_key = os.getenv("SECRET_KEY")
+UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY")
 
 if not api_key:
     # This provides a clear error message if the key is missing
@@ -23,7 +26,7 @@ genai.configure(api_key=api_key)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///blog.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL',"sqlite:///blog.db")
 
 db = SQLAlchemy(app)
 
@@ -116,16 +119,20 @@ def generate_ai():
         model = genai.GenerativeModel(model_name=model_name)
         response = model.generate_content(
             prompt,
-            generation_config=genai.types.GenerationConfig(max_output_tokens=500)
+            generation_config=genai.types.GenerationConfig(max_output_tokens=650)
         )
         # generated_text = response.candidates[0].content.parts[0].text.strip()
         try:
-             generated_text = response.text.strip()
+            raw_text = response.text.strip()
         except:
             try:
-                 generated_text = response.candidates[0].content.parts[0].text.strip()
+                raw_text = response.candidates[0].content.parts[0].text.strip()
             except (IndexError, AttributeError):
                 return jsonify({'error': 'Model did not return any content'}), 500
+        generated_text = insert_unsplash_images(raw_text)
+        # Insert Unsplash images into the raw AI-generated content
+
+
         return jsonify({'generated_content': generated_text})
     except Exception as e:
         print("AI generation error:", e)
@@ -163,6 +170,71 @@ def deletepost():
     db.session.commit()
     
     return redirect(url_for('index'))
+
+def insert_unsplash_images(text):
+    image_prompts = re.findall(r'[\(\[]Image:\s*(.*?)[\)\]]', text)
+
+    for prompt_img in image_prompts:
+        query = prompt_img.strip() #Clean the prompt — remove any leading/trailing whitespace for safe querying.
+        image_url = fetch_unsplash_image_url(query) # This is the Key Call
+        #Fetch the image URL from Unsplash API using the cleaned query.
+        
+        if image_url:
+            img_tag = f'<img src="{image_url}" alt="{query}" class="img-fluid my-3 rounded shadow" loading="lazy">'
+        else:
+            img_tag = f'<div class="alert alert-warning">[Image: {query} — Not Found]</div>'
+
+        text = text.replace(f"(Image: {prompt_img})", img_tag, 1)
+
+    return text
+
+def fetch_unsplash_image_url(query):
+    url = "https://api.unsplash.com/search/photos"
+    params = {
+        "query": query,
+        "per_page": 2, # Fetch 2 images to ensure we have at least one result
+        # and - for random pick among top images
+        "client_id": UNSPLASH_ACCESS_KEY
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        #Sends the HTTP GET request to Unsplash.
+        if response.status_code == 200:
+            # If the request was successful and returned at least 1 result-
+            data = response.json()
+            if data["results"]:
+                return data["results"][0]["urls"]["regular"] # Returns the URL of the first image in the results.
+    except Exception as e:
+        print("Unsplash API error:", e)
+
+    return None  # fallback image can be used
+
+# def insert_unsplash_images(text):
+#     # Match (Image: ...) or [Image: ...]
+#     image_prompts = re.findall(r'[\(\[]Image:\s*(.*?)[\)\]]', text)
+
+#     for prompt_img in image_prompts:
+#         # Clean up the image prompt
+#         prompt_cleaned = " ".join(prompt_img.split()[:5])  # limit to 5 words
+#         # Remove extra punctuation and stop words
+#         keyword = re.sub(r'\b(?:a|the|and|or|in|on|at|by|with|of)\b', '', prompt_cleaned, flags=re.IGNORECASE)
+#         keyword = re.sub(r'[^a-zA-Z0-9 ]+', '', keyword).strip()
+#         keyword = "-".join(keyword.lower().split())
+
+#         # Final Unsplash URL
+#         unsplash_url = f"https://source.unsplash.com/800x400/?{keyword}"
+
+#         # Final <img> tag
+#         img_tag = f'<img src="{unsplash_url}" alt="{prompt_img}" class="img-fluid my-3 rounded shadow" loading="lazy">'
+
+#         # Replace the original image tag
+#         text = re.sub(r'[\(\[]Image:\s*' + re.escape(prompt_img) + r'[\)\]]', img_tag, text, count=1)
+
+#     return text
+
+
+
 
 with app.app_context():  
     #used to push the application context manually in Flask

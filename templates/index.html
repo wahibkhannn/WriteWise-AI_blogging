@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- <html lang="en">
 
   <head>
 
@@ -18,10 +18,10 @@
 
   </head>
 
-  <body>
+  <body> -->
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand" href="{{ url_for('index') }}">Blog Speaks</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,10 +45,10 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('{{ url_for('static', filename='sample.jpg')}}')">
+    <!-- <header class="masthead" style="background-image: url('{{ url_for('static', filename='sample.jpg')}}')">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
@@ -59,10 +59,10 @@
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
 
     <!-- Main Content -->
-    <div class="container">
+    <!-- <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
         {% for post in posts %}
@@ -81,12 +81,12 @@
           <hr>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <hr>
+    <!-- <hr> -->
 
     <!-- Footer -->
-    <footer>
+    <!-- <footer>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
@@ -94,13 +94,113 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer> -->
 
-    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='blog.min.js') }}"></script>
 
   </body>
 
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WriteWise AI | Blog Speaks</title>
+
+  <!-- Minimal Bootstrap -->
+  <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">WriteWise AI</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('add') }}">Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('delete') }}">Delete</a>
+        </li>
+      </ul>
+
+      <!-- Dark/Light Mode Toggle -->
+      <button class="theme-toggle" id="theme-toggle-btn">🌓</button>
+    </div>
+  </div>
+</nav>
+
+ 
+  <header class="hero-section">
+    <div class="overlay"></div>
+    <div class="container text-center hero-content">
+      <h1 id="hero-text">Welcome to WriteWise</h1>
+      <p class="subheading">✨ Where Thoughts Turn Into Stories</p>
+      <div class="highlight-bubble typewriter">With AI, Blogging made easy✨</div>
+    </div>
+  </header>
+
+<section class="intro-section text-center my-5">
+  <div class="container">
+    <h2 class="mb-3">Why WriteWise?</h2>
+    <p class="lead">Whether you're a seasoned writer or just starting out, WriteWise gives you the perfect platform to express, engage, and evolve your thoughts — powered by AI magic ✨</p>
+  </div>
+</section>
+
+
+  <main class="container my-5">
+    {% for post in posts %}
+    <div class="post-card">
+      <a href="{{ url_for('post', post_id=post.id) }}">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <p class="post-subtitle">{{ post.subtitle }}</p>
+      </a>
+      <p class="post-meta">✍️ {{ post.author }} | 📅 {{ post.date_posted.strftime('%B %d, %Y') }}</p>
+    </div>
+    {% endfor %}
+  </main>
+
+  <section class="cta-section text-center py-5">
+    <div class="container">
+      <h2 class="mb-3">Ready to share your story?</h2>
+      <a href="{{ url_for('add') }}" class="btn btn-primary btn-lg">Start Writing</a>
+    </div>
+  </section>
+
+  <footer class="custom-footer">
+    <div class="container text-center">
+      <p>🚀 Made with ❤️ by WriteWise AI</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
 </html>

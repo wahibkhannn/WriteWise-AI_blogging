@@ -1,127 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Blog Speaks</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet">
+  <!-- <link href="{{ url_for('static', filename='blog.min.css') }}" rel="stylesheet"> -->
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora|Open+Sans:300,400,600,700,800" rel="stylesheet">
+</head>
 
-    <title>Blog Speaks</title>
-
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href="{{ url_for('static', filename='blog.min.css') }}" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">Blog Speaks</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about') }}">About Me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('add') }}">Add</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('delete') }}">Delete</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Page Header -->
-    <header class="masthead" style="background-image: url('{{ url_for('static', filename='post.jfif') }}')">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="page-heading">
-              <h1>Add New Post</h1>
-              <span class="subheading">You can create a blog post here.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Content -->
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <form name="addForm" id="addForm" method="POST" action="{{ url_for('addpost') }}" novalidate>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls">
-                <label>Title</label>
-                <input type="text" class="form-control" placeholder="Title" name="title" id="title" required data-validation-required-message="Please enter a title.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls">
-                <label>Subtitle</label>
-                <input type="text" class="form-control" placeholder="Subtitle" name="subtitle" id="subtitle" required data-validation-required-message="Please enter a subtitle">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group col-xs-12 floating-label-form-group controls">
-                <label>Author</label>
-                <input type="text" class="form-control" placeholder="Author" name="author" id="author" required data-validation-required-message="Please enter your name">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls">
-                <label>Blog Content</label>
-                <textarea rows="5" class="form-control" placeholder="Blog content" name="content" id="content" required data-validation-required-message="Please enter the blog content"></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <br>
-            <div id="success"></div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-secondary" id="sendMessageButton">Send</button>
-            </div>
-          </form>
-        </div>
+      <a class="navbar-brand" href="{{ url_for('index') }}">WriteWise AI</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add') }}">Add</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('delete') }}">Delete</a>
+          </li>
+        </ul>
+
+        <!-- Dark/Light Mode Toggle -->
+        <button class="theme-toggle" id="theme-toggle-btn">🌓</button>
       </div>
     </div>
+  </nav>
 
-    <hr>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <p class="copyright text-muted">Copyright &copy; AI revolution -</p>
-          </div>
-        </div>
+  <!-- Header -->
+  <header class="masthead">
+    <div class="container text-center">
+      <div class="page-heading">
+        <h1>Add New Post</h1>
+        <span class="subheading">You can create a blog post here.</span>
       </div>
-    </footer>
+      <div class="highlight-bubble typewriter">With AI, Blogging made easy✨</div>
 
-    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='blog.min.js') }}"></script>
+    </div>
+  </header>
 
-  </body>
+
+  <!-- Main Content -->
+  <!-- Add Post Section -->
+  <section class="add-post-section">
+    <div class="add-post-card">
+      <h2 class="add-post-title">📝 Create Your Masterpiece</h2>
+      <p class="add-post-subtitle">Start writing your blog and let your voice echo.</p>
+
+      <form action="{{ url_for('addpost') }}" method="POST" class="add-post-form">
+        <div class="form-group">
+          <label for="title">Blog Title</label>
+          <input type="text" class="form-control styled-input" name="title" id="title" required>
+        </div>
+        <div class="form-group">
+          <label for="subtitle">Blog Subtitle</label>
+          <input type="text" class="form-control styled-input" name="subtitle" id="subtitle" required>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input type="text" class="form-control styled-input" name="author" id="author" required>
+        </div>
+
+
+        <div class="form-group">
+          <label for="ai_prompt">✍️ AI Prompt</label>
+          <input type="text" class="form-control styled-input" name="ai_prompt" id="ai_prompt"
+            placeholder="Enter a prompt to generate content... e.g. Write a blog on the future of AI">
+          <button type="button" class="btn btn-ai mt-2" onclick="generateAIContent()">Generate with AI✨</button>
+        </div>
+
+
+
+        <label for="model-select">Choose AI Model:</label>
+        <select id="model-select">
+          <!-- <option value="models/gemini-2.5-flash" selected>Gemini 2.5 Flash</option> -->
+          <option value="models/gemini-2.5-flash-lite-preview-06-17">Gemini 2.5 Flash Lite</option>
+          <option value="models/gemini-1.5-flash">Gemini 1.5 Flash</option>
+          <option value="models/gemini-1.5-flash-8b-latest">Gemini 1.5 Flash 8B (latest)</option>
+        </select>
+
+        <div class="form-group">
+          <label for="content">Blog Content</label>
+          <textarea class="form-control styled-textarea" name="content" id="content" rows="8" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-publish">Publish Blog</button>
+      </form>
+    </div>
+  </section>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="text-center">
+        <p class="text-muted">Copyright &copy; AI revolution</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='blog.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
 
 </html>

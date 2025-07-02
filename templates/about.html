@@ -18,28 +18,29 @@
     href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
     rel='stylesheet' type='text/css'>
   <link href="{{ url_for('static', filename='blog.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 
 </head>
 
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="{{ url_for('index') }}">Blog Speaks</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
+      <a class="navbar-brand" href="{{ url_for('index') }}">WriteWise AI</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
+
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('index') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('about') }}">About Me</a>
+            <a class="nav-link" href="{{ url_for('about') }}">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('add') }}">Add</a>
@@ -48,9 +49,13 @@
             <a class="nav-link" href="{{ url_for('delete') }}">Delete</a>
           </li>
         </ul>
+
+        <!-- Dark/Light Mode Toggle -->
+        <button class="theme-toggle" id="theme-toggle-btn">🌓</button>
       </div>
     </div>
   </nav>
+
 
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('{{ url_for('static', filename='about_me.jpg') }}')">
@@ -61,55 +66,67 @@
             <h1>AI revolution</h1>
             <span class="subheading">Revolutionizing WriteWise AI: The Future of Content Creation</span>
           </div>
+          <div class="ai-highlight">
+            💡 With <strong>AI</strong>, blogging made easy!
+          </div>
+
         </div>
       </div>
     </div>
   </header>
 
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <h2 class="mt-4">Revolutionizing WriteWise AI: The Future of Content Creation</h2>
-      
-      <p class="mt-3">
-        Welcome to <strong>WriteWise AI</strong>, where the future of content meets the brilliance of Artificial Intelligence. In an age flooded with information, standing out as a creator has never been more challenging — or more exciting.
+  <!-- Main Content -->
+  <!-- Main Content -->
+  <section class="about-section">
+    <div class="container about-container">
+      <h2 class="about-heading">Revolutionizing WriteWise AI: The Future of Content Creation</h2>
+
+      <p class="about-lead">
+        Welcome to <strong>WriteWise AI</strong>, where the future of content meets the brilliance of Artificial
+        Intelligence. In an age flooded with information, standing out as a creator has never been more challenging — or
+        more exciting.
       </p>
 
       <p>
-        Our platform was born from a simple yet powerful idea: to empower writers, thinkers, and storytellers to craft meaningful content with the support of cutting-edge AI tools. We don't replace human creativity — we amplify it.
+        Our platform was born from a simple yet powerful idea: to empower writers, thinkers, and storytellers to craft
+        meaningful content with the support of cutting-edge AI tools. We don't replace human creativity — we amplify
+        it.
       </p>
 
-      <h3 class="mt-5">🚀 The Rise of AI in Content Creation</h3>
-      
-      <p>
-        Artificial Intelligence is transforming how we write, curate, and share content. From generating smart headlines to helping with grammar checks, tone adjustments, and even SEO optimization — AI is becoming a true co-pilot for bloggers.
-      </p>
+      <h3 class="about-subheading">🚀 The Rise of AI in Content Creation</h3>
 
       <p>
-        Whether you're an experienced writer, a passionate learner, or just stepping into the blogging world, our tools help you create high-quality, engaging content — faster, easier, and smarter.
+        Artificial Intelligence is transforming how we write, curate, and share content. From generating smart
+        headlines to helping with grammar checks, tone adjustments, and even SEO optimization — AI is becoming a true
+        co-pilot for bloggers.
       </p>
 
-      <blockquote class="blockquote my-4">
-        <p class="mb-0">“AI won't replace bloggers, but bloggers who use AI will replace those who don't.”</p>
+      <p>
+        Whether you're an experienced writer, a passionate learner, or just stepping into the blogging world, our
+        tools help you create high-quality, engaging content — faster, easier, and smarter.
+      </p>
+
+      <blockquote class="about-quote">
+        “AI won't replace bloggers, but bloggers who use AI will replace those who don't.”
       </blockquote>
 
-      <h3 class="mt-5">💡 Why It Matters</h3>
+      <h3 class="about-subheading">💡 Why It Matters</h3>
 
       <p>
-        With AI, content creation is no longer reserved for tech-savvy professionals or large media teams. It's for everyone. At WriteWise AI, we believe in democratizing creativity — giving every voice a chance to be heard.
+        With AI, content creation is no longer reserved for tech-savvy professionals or large media teams. It's for
+        everyone. At WriteWise AI, we believe in democratizing creativity — giving every voice a chance to be heard.
       </p>
 
-      <h3 class="mt-5">🌐 The Future Is Now</h3>
+      <h3 class="about-subheading">🌐 The Future Is Now</h3>
 
       <p>
-        The future of blogging is collaborative, intelligent, and limitless. Join us on this journey where technology meets imagination — and together, we write the future.
+        The future of blogging is collaborative, intelligent, and limitless. Join us on this journey where technology
+        meets imagination — and together, we write the future.
       </p>
 
-      <p class="text-muted mt-5">— Team WriteWise AI</p>
+      <p class="about-signature">— Team WriteWise AI</p>
     </div>
-  </div>
-</div>
+  </section>
 
 
 
@@ -140,7 +157,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <p class="copyright text-muted">Copyright &copy; AI revolution</p>
+          <p class="copyright text-muted">Copyright &copy; {{ datetime.utcnow().year }} Blog Speaks
+          </p>
         </div>
       </div>
     </div>
@@ -150,6 +168,8 @@
   <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
   <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='blog.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 
 </body>
 

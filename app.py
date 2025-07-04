@@ -176,17 +176,22 @@ def insert_unsplash_images(text):
 
     for prompt_img in image_prompts:
         query = simplify_prompt(prompt_img)
+        print(f"[IMAGE PROMPT FOUND]: '{prompt_img}' → simplified: '{query}'")
 
         # query = prompt_img.strip() #Clean the prompt — remove any leading/trailing whitespace for safe querying.
         image_url = fetch_unsplash_image_url(query) # This is the Key Call
         #Fetch the image URL from Unsplash API using the cleaned query.
+        print(f"[UNSPLASH URL]: {image_url}")
         
         if image_url:
             img_tag = f'<img src="{image_url}" alt="{query}" class="img-fluid my-3 rounded shadow" loading="lazy">'
         else:
             img_tag = f'<div class="alert alert-warning">[Image: {query} — Not Found]</div>'
 
-        text = text.replace(f"(Image: {prompt_img})", img_tag, 1)
+        pattern = re.compile(r'[\(\[]Image:\s*' + re.escape(prompt_img) + r'[\)\]]', flags=re.IGNORECASE)
+        # This regex pattern matches the image prompt in the text, allowing for case-insensitivity and extra whitespace.
+        text = pattern.sub(img_tag, text, count=1)
+        # for case-insensitive and extra-whitespace handling
 
     return text
 

@@ -175,7 +175,9 @@ def insert_unsplash_images(text):
     image_prompts = re.findall(r'[\(\[]Image:\s*(.*?)[\)\]]', text)
 
     for prompt_img in image_prompts:
-        query = prompt_img.strip() #Clean the prompt — remove any leading/trailing whitespace for safe querying.
+        query = simplify_prompt(prompt_img)
+
+        # query = prompt_img.strip() #Clean the prompt — remove any leading/trailing whitespace for safe querying.
         image_url = fetch_unsplash_image_url(query) # This is the Key Call
         #Fetch the image URL from Unsplash API using the cleaned query.
         
@@ -187,6 +189,13 @@ def insert_unsplash_images(text):
         text = text.replace(f"(Image: {prompt_img})", img_tag, 1)
 
     return text
+
+def simplify_prompt(query):
+    query = query.lower().strip()
+    stopwords = ['the', 'of', 'in', 'his', 'her', 'their', 'with', 'and', 'a', 'an', 'on', 'at', 'for']
+    words = [word for word in query.split() if word not in stopwords]
+    return ' '.join(words[:5])  # only top 5 meaningful words
+
 
 def fetch_unsplash_image_url(query):
     url = "https://api.unsplash.com/search/photos"
